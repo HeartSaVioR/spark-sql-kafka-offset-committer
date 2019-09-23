@@ -2,10 +2,6 @@
 
 Kafka Offset committer helps structured streaming query which uses Kafka Data Source to commit offsets which batch has been processed.
 
-## Disclaimer
-
-This is something more of a proof of concept implementation, might not be something for production ready.
-
 ## Supported versions
 
 Spark 2.4.x is supported: it only means you should link Spark 2.4.x when using this tool. That state formats across the Spark 2.x versions are supported.
