@@ -42,6 +42,72 @@ spark.readStream
 Manually specifying consumer group ID is needed, because Spark will assign unique consumer group ID to avoid multiple queries being conflicted to each other.
 This also means, you may want to thoughtfully set the option and decide the name of group ID so that multiple queries don't use the same group ID for committing.   
 
+Here's an example of command to run spark-shell with kafka committer listener being set, and simple query to read from Kafka topics and write to Kafka topic.
+
+> command
+
+```
+./bin/spark-shell --master "local[3]" --packages org.apache.spark:spark-sql-kafka-0-10_2.11:2.4.3 --jars ./spark-sql-kafka-offset-committer-0.1.0-SNAPSHOT.jar --conf spark.sql.streaming.streamingQueryListeners=net.heartsavior.spark.KafkaOffsetCommitterListener
+```
+
+> query
+
+```scala
+val bootstrapServers = "localhost:9092"
+val checkpointLocation = "/tmp/mykafkaaaaaaa"
+val sourceTopics = Seq("truck_events_stream").mkString(",")
+val sourceTopics2 = Seq("truck_speed_events_stream").mkString(",")
+
+val targetTopic = "sparksinkstreaming"
+
+val df = spark.readStream.format("kafka").option("kafka.bootstrap.servers", bootstrapServers).option("subscribe", sourceTopics).option("startingOffsets", "earliest").option("kafka.consumer.commit.groupid", "spark-sql-kafka-offset-committer-test-1").load()
+
+val df2 = spark.readStream.format("kafka").option("kafka.bootstrap.servers", bootstrapServers).option("subscribe", sourceTopics2).option("startingOffsets", "earliest").option("kafka.consumer.commit.groupid", "spark-sql-kafka-offset-committer-test-1").load()
+
+val query = df.union(df2).writeStream.format("kafka").option("kafka.bootstrap.servers", bootstrapServers).option("checkpointLocation", checkpointLocation).option("topic", targetTopic).option("kafka.atlas.cluster.name", "sink").start()
+```
+
+> result
+
+```
+$ kafka-consumer-groups --bootstrap-server localhost:9092 --describe --group spark-sql-kafka-offset-committer-test-1
+Consumer group 'spark-sql-kafka-offset-committer-test-1' has no active members.
+
+TOPIC                                    PARTITION  CURRENT-OFFSET  LOG-END-OFFSET  LAG             CONSUMER-ID     HOST            CLIENT-ID
+truck_speed_events_stream                5          844553          844577          24              -               -               -
+truck_speed_events_stream                2          675521          675540          19              -               -               -
+truck_speed_events_stream                6          168828          168833          5               -               -               -
+truck_speed_events_stream                3          337819          337827          8               -               -               -
+truck_speed_events_stream                7          675566          675585          19              -               -               -
+truck_speed_events_stream                4          168914          168919          5               -               -               -
+truck_speed_events_stream                0          168894          168899          5               -               -               -
+truck_speed_events_stream                8          675570          675589          19              -               -               -
+truck_speed_events_stream                1          168917          168922          5               -               -               -
+truck_events_stream                      0          3884586         3884695         109             -               -               -
+truck_speed_events_stream                9          0               0               0               -               -               -
+```
+
+After stopping ingestion of records and waiting for query to fully process the records:
+
+```
+$ kafka-consumer-groups --bootstrap-server localhost:9092 --describe --group spark-sql-kafka-offset-committer-test-1
+Consumer group 'spark-sql-kafka-offset-committer-test-1' has no active members.
+
+TOPIC                                    PARTITION  CURRENT-OFFSET  LOG-END-OFFSET  LAG             CONSUMER-ID     HOST            CLIENT-ID
+truck_speed_events_stream                5          856338          856338          0               -               -               -
+truck_speed_events_stream                2          684958          684958          0               -               -               -
+truck_speed_events_stream                6          171186          171186          0               -               -               -
+truck_speed_events_stream                3          342534          342534          0               -               -               -
+truck_speed_events_stream                7          684998          684998          0               -               -               -
+truck_speed_events_stream                4          171272          171272          0               -               -               -
+truck_speed_events_stream                0          171255          171255          0               -               -               -
+truck_speed_events_stream                8          684999          684999          0               -               -               -
+truck_speed_events_stream                1          171276          171276          0               -               -               -
+truck_events_stream                      0          3938820         3938820         0               -               -               -
+truck_speed_events_stream                9          0               0               0               -               -               -
+```
+
+
 ## License
 
 Copyright 2019 Jungtaek Lim "<kabhwan@gmail.com>"
