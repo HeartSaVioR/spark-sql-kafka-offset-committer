@@ -1,11 +1,10 @@
-# Kafka Offset committer for Spark structured streaming
+# Kafka offset committer for Spark structured streaming
 
 [![CircleCI](https://circleci.com/gh/HeartSaVioR/spark-sql-kafka-offset-committer/tree/master.svg?style=svg)](https://circleci.com/gh/HeartSaVioR/spark-sql-kafka-offset-committer/tree/master)
 
-Kafka Offset committer helps structured streaming query which uses Kafka Data Source to commit offsets which batch has been processed.
+Kafka offset committer helps structured streaming query which uses Kafka Data Source to commit offsets which batch has been processed.
 
-This project is inspired by [SPARK-27549](https://issues.apache.org/jira/browse/SPARK-27549), which proposes to add this feature in Spark codebase,
-but the decision was taken as not include to Spark.
+This project is inspired by [SPARK-27549](https://issues.apache.org/jira/browse/SPARK-27549), which proposes to add this feature in Spark codebase, but the decision was taken as not include to Spark. You can call this project as a "follow-up" of SPARK-27549. This project is also inspired by [Spark Atlas Connector](https://github.com/hortonworks-spark/spark-atlas-connector) - SAC leverages Scala reflection to extract topic information from query execution. Kafka offset committer uses the same approach to extract Kafka parameters. Credits to everyone involved SPARK-27549 & SAC.
 
 ## Supported versions
 
@@ -15,7 +14,7 @@ The project doesn't support cross-scala versions: Scala 2.11.x is supported only
 
 ## How to use
 
-Kafka Offset committer is implemented as StreamingQueryListener. There're two approaches to enable streaming query listener:
+Kafka offset committer is implemented as StreamingQueryListener. There're two approaches to enable streaming query listener:
 
 1. Attach the instance of `KafkaOffsetCommitterListener` via below:
 
