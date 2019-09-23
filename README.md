@@ -8,7 +8,7 @@ This project is inspired by [SPARK-27549](https://issues.apache.org/jira/browse/
 
 ## Supported versions
 
-Spark 2.4.x is supported: it only means you should link Spark 2.4.x when using this tool. That state formats across the Spark 2.x versions are supported.
+Spark 2.4.x is supported: it only means you should link Spark 2.4.x when using this project.
 
 The project doesn't support cross-scala versions: Scala 2.11.x is supported only.
 
