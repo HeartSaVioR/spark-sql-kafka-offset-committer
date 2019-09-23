@@ -39,8 +39,13 @@ spark.readStream
   .load()
 ``` 
 
-Manually specifying consumer group ID is needed, because Spark will assign unique consumer group ID to avoid multiple queries being conflicted to each other.
-This also means, you may want to thoughtfully set the option and decide the name of group ID so that multiple queries don't use the same group ID for committing.   
+"kafka.consumer.commit.groupid" is the new config to specify consumer group ID to commit. Manually specifying consumer group ID is needed, because Spark will
+assign unique consumer group ID to avoid multiple queries being conflicted to each other. This also means, you may want to thoughtfully set the option and
+ decide the name of group ID so that multiple queries don't use the same group ID for committing.
+
+Due to technical reason, the project uses reflection to extract options from query execution. Given we intercept Kafka parameters instead of source options
+ of DataSource, adding "kafka." to option key is necessary and it brings unintended warning messages from Kafka side. (Sorry!) You can adjust your log4j config
+to hide the warning messages.
 
 Here's an example of command to run spark-shell with kafka committer listener being set, and simple query to read from Kafka topics and write to Kafka topic.
 
