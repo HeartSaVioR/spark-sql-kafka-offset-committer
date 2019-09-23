@@ -1,6 +1,11 @@
 # Kafka Offset committer for Spark structured streaming
 
+[![CircleCI](https://circleci.com/gh/HeartSaVioR/spark-sql-kafka-offset-committer/tree/master.svg?style=svg)](https://circleci.com/gh/HeartSaVioR/spark-sql-kafka-offset-committer/tree/master)
+
 Kafka Offset committer helps structured streaming query which uses Kafka Data Source to commit offsets which batch has been processed.
+
+This project is inspired by [SPARK-27549](https://issues.apache.org/jira/browse/SPARK-27549), which proposes to add this feature in Spark codebase,
+but the decision was taken as not include to Spark.
 
 ## Supported versions
 
