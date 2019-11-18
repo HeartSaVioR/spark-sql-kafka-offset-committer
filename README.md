@@ -12,6 +12,18 @@ Spark 2.4.x is supported: it only means you should link Spark 2.4.x when using t
 
 The project doesn't support cross-scala versions: Scala 2.11.x is supported only.
 
+## How to import
+
+Add this to your maven pom.xml file. If you're using other builds like groovy or sbt or so, please import the artifact accordingly; groupId: `net.heartsavior.spark`, artifactId: `spark-sql-kafka-offset-committer`.
+
+```
+<dependency>
+  <groupId>net.heartsavior.spark</groupId>
+  <artifactId>spark-sql-kafka-offset-committer</artifactId>
+  <version>0.1.0</version>
+</dependency>
+```
+
 ## How to use
 
 Kafka offset committer is implemented as StreamingQueryListener. There're two approaches to enable streaming query listener:
