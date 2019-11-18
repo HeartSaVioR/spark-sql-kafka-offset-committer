@@ -4,7 +4,7 @@
 
 Kafka offset committer helps structured streaming query which uses Kafka Data Source to commit offsets which batch has been processed.
 
-This project is inspired by [SPARK-27549](https://issues.apache.org/jira/browse/SPARK-27549), which proposes to add this feature in Spark codebase, but the decision was taken as not include to Spark. You can call this project as a "follow-up" of SPARK-27549. This project is also inspired by [Spark Atlas Connector](https://github.com/hortonworks-spark/spark-atlas-connector) - SAC leverages Scala reflection to extract topic information from query execution. Kafka offset committer uses the same approach to extract Kafka parameters. Credits to everyone involved SPARK-27549 & SAC.
+This project is inspired by [SPARK-27549](https://issues.apache.org/jira/browse/SPARK-27549), which proposed to add this feature in Spark codebase, but the decision was taken as not include to Spark. You can call this project as a "follow-up" of SPARK-27549. This project is also inspired by [Spark Atlas Connector](https://github.com/hortonworks-spark/spark-atlas-connector) - SAC leverages Scala reflection to extract topic information from query execution. Kafka offset committer uses the same approach to extract Kafka parameters. Credits to everyone involved SPARK-27549 & SAC.
 
 ## Supported versions
 
