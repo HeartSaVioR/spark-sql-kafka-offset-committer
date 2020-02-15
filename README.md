@@ -24,6 +24,8 @@ Add this to your maven pom.xml file. If you're using other builds like groovy or
 </dependency>
 ```
 
+You can dynamically include jar file while submitting, via leveraging `--packages` option. `--packages net.heartsavior.spark:spark-sql-kafka-offset-committer:0.1.0`. You may want to add `--conf spark.sql.streaming.streamingQueryListeners=net.heartsavior.spark.KafkaOffsetCommitterListener` as well, since you're dynamically adding the jar, hence the class is not accessible in your uber jar.
+
 ## How to use
 
 Kafka offset committer is implemented as StreamingQueryListener. There're two approaches to enable streaming query listener:
