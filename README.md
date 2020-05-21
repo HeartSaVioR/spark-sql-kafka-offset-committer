@@ -130,7 +130,7 @@ truck_speed_events_stream                9          0               0           
 
 ## License
 
-Copyright 2019 Jungtaek Lim "<kabhwan@gmail.com>"
+Copyright 2019-2020 Jungtaek Lim "<kabhwan@gmail.com>"
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
