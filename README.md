@@ -12,7 +12,7 @@ This project is inspired by [SPARK-27549](https://issues.apache.org/jira/browse/
 
 Spark 2.4.x is supported: it only means you should link Spark 2.4.x when using this project.
 
-The project doesn't support cross-scala versions: Scala 2.11.x is supported only.
+The project provides cross-compile for Scala 2.11 and 2.12 (thanks [@redsk](https://github.com/redsk)!); please pick the right artifact for your Scala version.
 
 ## How to import
 
