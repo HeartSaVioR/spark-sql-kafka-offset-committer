@@ -4,7 +4,7 @@ lazy val supportedScalaVersions = List(scala212)
 scalaVersion := scala212
 crossScalaVersions := supportedScalaVersions
 
-name := "spark-sql-kafka-offset-committer"
+name := "spark-sql-kafka-offset-committer-spark3.0"
 
 organization := "net.heartsavior.spark"
 
@@ -108,7 +108,7 @@ scalacOptions in(Compile, doc) ++= baseDirectory.map {
   bd: File =>
     Seq[String](
       "-sourcepath", bd.getAbsolutePath,
-      "-doc-source-url", s"https://github.com/HeartSaVioR/spark-sql-kafka-offset-committer/tree/master€{FILE_PATH}.scala"
+      "-doc-source-url", s"https://github.com/HeartSaVioR/spark-sql-kafka-offset-committer/tree/develop-spark3.0€{FILE_PATH}.scala"
     )
 }.value
 
