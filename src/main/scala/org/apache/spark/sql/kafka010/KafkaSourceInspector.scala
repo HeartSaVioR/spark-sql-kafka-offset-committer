@@ -23,7 +23,7 @@ import org.apache.kafka.common.TopicPartition
 
 import org.apache.spark.rdd.RDD
 import org.apache.spark.sql.execution.{RDDScanExec, RowDataSourceScanExec, SparkPlan}
-import org.apache.spark.sql.execution.datasources.v2.{DataSourceRDDPartition, DataSourceV2ScanExec}
+import org.apache.spark.sql.execution.datasources.v2.{DataSourceRDDPartition, DataSourceV2ScanExecBase}
 import org.apache.spark.sql.kafka010.{JsonUtils => KafkaJsonUtils}
 import org.apache.spark.sql.sources.BaseRelation
 
@@ -36,7 +36,7 @@ class KafkaSourceInspector(sparkPlan: SparkPlan) {
           extractKafkaParamsFromKafkaRelation(r.relation)
         case r: RDDScanExec =>
           extractKafkaParamsFromDataSourceV1(r)
-        case r: DataSourceV2ScanExec =>
+        case r: DataSourceV2ScanExecBase =>
           extractSourceTopicsFromDataSourceV2(r)
         case _ => None
       }
@@ -105,11 +105,12 @@ class KafkaSourceInspector(sparkPlan: SparkPlan) {
     map.map(_.asScala.toMap).orElse(None)
   }
 
-  def extractSourceTopicsFromDataSourceV2(r: DataSourceV2ScanExec): Option[Map[String, Object]] = {
+  def extractSourceTopicsFromDataSourceV2(
+      r: DataSourceV2ScanExecBase): Option[Map[String, Object]] = {
     r.inputRDDs().flatMap { rdd =>
       rdd.partitions.flatMap {
-        case e: DataSourceRDDPartition[_] => e.inputPartition match {
-          case part: KafkaMicroBatchInputPartition =>
+        case e: DataSourceRDDPartition => e.inputPartition match {
+          case part: KafkaBatchInputPartition =>
             Some(part.executorKafkaParams.asScala.toMap)
           case part: KafkaContinuousInputPartition =>
             Some(part.kafkaParams.asScala.toMap)

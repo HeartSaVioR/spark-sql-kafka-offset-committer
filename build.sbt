@@ -1,8 +1,7 @@
 lazy val scala212 = "2.12.10"
-lazy val scala211 = "2.11.12"
-lazy val supportedScalaVersions = List(scala212, scala211)
+lazy val supportedScalaVersions = List(scala212)
 
-scalaVersion := scala211
+scalaVersion := scala212
 crossScalaVersions := supportedScalaVersions
 
 name := "spark-sql-kafka-offset-committer"
@@ -33,7 +32,7 @@ javacOptions ++= Seq(
   "-g:vars"
 )
 
-val sparkVersion = "2.4.0"
+val sparkVersion = "3.0.0"
 
 libraryDependencies ++= Seq(
   "org.apache.spark" %% "spark-sql" % sparkVersion % "provided",
@@ -42,12 +41,12 @@ libraryDependencies ++= Seq(
   "org.apache.spark" %% "spark-catalyst" % sparkVersion % Test classifier "tests",
   "org.apache.spark" %% "spark-sql" % sparkVersion % Test classifier "tests",
   "org.apache.spark" %% "spark-sql-kafka-0-10" % sparkVersion % Test classifier "tests",
-  "org.apache.kafka" %% "kafka" % "2.0.1" % Test,
+  "org.apache.kafka" %% "kafka" % "2.4.1" % Test,
   "org.scalatest" %% "scalatest" % "3.0.3" % Test withSources(),
   "junit" % "junit" % "4.12" % Test,
 
   // update this when updating Spark version
-  "com.fasterxml.jackson.module" %% "jackson-module-scala" % "2.9.7" % Test,
+  "com.fasterxml.jackson.module" %% "jackson-module-scala" % "2.10.0" % Test,
 )
 
 
