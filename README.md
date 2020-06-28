@@ -10,19 +10,26 @@ This project is inspired by [SPARK-27549](https://issues.apache.org/jira/browse/
 
 ## Supported versions
 
-Spark 2.4.x is supported: it only means you should link Spark 2.4.x when using this project.
+Both Spark 3.0.x and 2.4.x is supported: it only means you should use these versions when using this project.
 
-The project provides cross-compile for Scala 2.11 and 2.12 (thanks [@redsk](https://github.com/redsk)!); please pick the right artifact for your Scala version.
+The project provides cross-compile for Scala 2.11 and 2.12 (thanks [@redsk](https://github.com/redsk)!) for Spark 2.4.x; please pick the right artifact for your Scala version.
+
+Spark version | Scala versions | artifact version
+------------- | -------------- | ----------------
+2.4.x         | 2.11 / 2.12    | 0.3.0-spark-2.4
+3.0.x         | 2.12           | 0.3.0-spark-3.0
 
 ## How to import
 
-Add this to your maven pom.xml file. If you're using other builds like groovy or sbt or so, please import the artifact accordingly; groupId: `net.heartsavior.spark`, artifactId: `spark-sql-kafka-offset-committer`.
+Add this to your maven pom.xml file. If you're using other builds like groovy or sbt or so, please import the artifact accordingly; groupId: `net.heartsavior.spark`, artifactId: `spark-sql-kafka-offset-committer_<scala_version>`.
+
+Please replace `{{...}}` with content in above matrix:
 
 ```
 <dependency>
   <groupId>net.heartsavior.spark</groupId>
-  <artifactId>spark-sql-kafka-offset-committer</artifactId>
-  <version>0.1.0</version>
+  <artifactId>spark-sql-kafka-offset-committer_{{scala_version}}</artifactId>
+  <version>{{artifact_version}}</version>
 </dependency>
 ```
 
