@@ -5,7 +5,7 @@ lazy val supportedScalaVersions = List(scala212, scala211)
 scalaVersion := scala211
 crossScalaVersions := supportedScalaVersions
 
-name := "spark-sql-kafka-offset-committer-spark2.4"
+name := "spark-sql-kafka-offset-committer"
 
 organization := "net.heartsavior.spark"
 
