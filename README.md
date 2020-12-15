@@ -16,8 +16,8 @@ The project provides cross-compile for Scala 2.11 and 2.12 (thanks [@redsk](http
 
 Spark version | Scala versions | artifact version
 ------------- | -------------- | ----------------
-2.4.x         | 2.11 / 2.12    | 0.3.0-spark-2.4
-3.0.x         | 2.12           | 0.3.0-spark-3.0
+2.4.x         | 2.11 / 2.12    | 0.4.0-spark-2.4
+3.0.x         | 2.12           | 0.4.0-spark-3.0
 
 ## How to import
 
